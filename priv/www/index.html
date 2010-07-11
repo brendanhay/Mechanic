@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+  <head> 
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" /> 
+    <title>WS</title> 
+    <link href="stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> 
+    <script src="javascripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <script src="javascripts/jquery-ui-1.8.min.js" type="text/javascript"></script>
+    <script src="javascripts/websocketchat.js" type="text/javascript"></script>
+    <script src="javascripts/armstrong.js" type="text/javascript"></script>
+    <script src="javascripts/bert.js" type="text/javascript"></script>
+  </head> 
+  <body> 
+    <div class="section container"> 
+	<div class="span-24">
+	    <ul class="menu">
+		<li><a href="#rationale">Rationale</a></li>
+		<li><a href="#examples">Examples</a></li>
+		<li><a href="#implementation">Implementation</a></li>
+		<li><a href="#architecture">Architecture</a></li>
+		<li><a href="#">Future</a></li>
+		<li><a href="#">Contributing</a></li>
+	    </ul>
+	</div>
+	<div class="span-24">
+	    <h2 id="rationale">Rationale</h2>
+	    <p>
+		Explanation
+	    </p>
+
+	    <h2 id="examples">Examples</h2>
+	    <p>
+		Below are 3 Chat windows which connect via a WebSocket to the Erlang WebSocket server. A 'Handler' is defined as the pairing of an Erlang <code>gen_websocket</code> implementation on the Server and JavaScript encoding and decoding functions on the Client.
+	    </p>
+	    <p>
+		Click <button class="dummy">Connect</button> beneath one of the WebSocket handlers below to get started. <button class="dummy">Disconnect</button> closes the WebSocket and <button class="dummy default">Send</button> or an 'Enter' key press will deliver a message to the Server once connected.
+	    </p>
+	    <p>
+		The label <code>Client</code> denotes a JavaScript message and <code>Server</code> is any message pushed from the Erlang Server.
+	    </p>
+	</div>
+
+	<div id="armstrong" class="span-8 column"> 
+	    <div class="title">
+		Armstrong
+	    </div>
+	    <div class="output">
+
+	    </div>
+	    <p>
+		<input class="input" type="text" />
+		<button class="send default" disabled="disabled">
+		    Send
+		</button>
+		<button class="connect pill-l">
+		    Connect
+		</button> 
+		<button class="disconnect pill-r" disabled="disabled"> 
+		    Disconnect
+		</button> 
+	    </p>
+	    <p>
+		This is the most simplistic example of creating a WebSocket handler in Erlang and JavaScript.
+		It is based on Joe Armstrong's <a href="http://armstrongonsoftware.blogspot.com/2009/12/comet-is-dead-long-live-websockets.html" target="_blank">Comet is dead long live websockets</a> blog post.
+	    </p>
+	    <p> 
+		The JavaScript class <code>ArmstrongClass</code> in <code>armstrong.js</code> is a skeleton object with <code>encode(str)</code> and <code>decode(str)</code> functions that simply return their input.
+	    </p>
+	    <p>
+		On the Server side, <code>armstrong_websocket.erl</code> is a barebones implementation of the <code>gen_websocket</code> generic behaviour.
+	    </p>
+	    <label>Sources</label>
+	    <br/>
+	    <ul class="listing">
+		<li>
+		    <code>src/armstrong_websocket.erl</code>
+		</li>
+		<li>
+		    <code>priv/www/javascripts/armstrong.js</code>
+		</li>
+	    </ul>
+	</div> 
+
+	<div id="bert" class="span-8 column"> 
+	    <div class="title">
+		Binary Erlang Term
+	    </div>
+	    <div class="output">
+
+	    </div>
+	    <p>
+		<input class="input" type="text" />
+		<button class="send default" disabled="disabled">
+		    Send
+		</button>
+		<button class="connect pill-l">
+		    Connect
+		</button> 
+		<button class="disconnect pill-r" disabled="disabled"> 
+		    Disconnect
+		</button> 
+	    </p>
+	    <p>
+		A slightly more complicated example which in turn supports most Erlang types using the <a href="http://bert-rpc.org" target="_blank">BERT-RPC</a> protocol.
+	    </p>
+	    <p> 
+		The <code>BERT</code> object in <code>bert.js</code> contains the encoding and decoding mechanisms for most of the objects in the BERT-RPC protocol. Currently Regular Expressions and Dates are not supported.
+		Code for this was obtained from the <a href="http://github.com/rtomayko/node-bertrpc/" target="_blank">node-bertrpc</a> project which in turn is based on <a href="http://github.com/rklophaus/BERT-JS">BERT-JS</a>.		
+	    </p>
+	    <p>
+		<code>bert_websocket.erl</code> contains the same <code>encode/1</code> and <code>decode/1</code> functions as the BERT reference implementation at <a href="http://github.com/mojombo/bert.erl" target="_blank">bert.erl</a>.
+	    </p>
+	    <label>Sources</label>
+	    <br/>
+	    <ul class="listing">
+		<li>
+		    <code>src/bert_websocket.erl</code>
+		</li>
+		<li>
+		    <code>priv/www/javascripts/bert.js</code>
+		</li>
+	    </ul>
+	</div> 
+
+	<div id="ubf" class="span-8 column last"> 
+	    <div class="title">
+		Universal Binary Format
+	    </div>
+	    <div class="output">
+
+	    </div>
+	    <p>
+		<input class="input" type="text" />
+		<button class="send default" disabled="disabled">
+		    Send
+		</button>
+		<button class="connect pill-l">
+		    Connect
+		</button> 
+		<button class="disconnect pill-r" disabled="disabled"> 
+		    Disconnect
+		</button> 
+	    </p>
+	    <p>
+		Using the <a href="http://www.sics.se/~joe/ubf/site/ubfa.html" target="_blank">UBF(A)</a> data transport format.
+	    </p>
+	    <p>
+		<code>ubf.js</code>
+	    </p>
+	    <p>
+		<code>ubf_websocket.erl</code>
+	    </p>
+	    <label>Sources</label>
+	    <br/>
+	    <ul class="listing">
+		<li>
+		    <code>src/ubf_websocket.erl</code>
+		</li>
+		<li>
+		    <code>priv/www/javascripts/ubf.js</code>
+		</li>
+	    </ul>
+	</div> 
+
+	<div class="span-24">
+	    <h2 id="implementation">Implementation Details</h2>
+	    <p>
+		The Server can send frames in two ways according to
+		the WebSocket Protocol:<a class="citation" href="#">2</a>
+	    </p>
+	    <ul>
+		<li>
+		    <label>a:</label>
+		    A unicode string starting with <code>0x00</code> and terminating at the first occurence of <code>0xFF</code>.
+		</li>
+		<li>
+		    <label>b:</label>
+		    The first 2 byte's in the frame are a byte with it's most significant bit set, ie. <code>0x80 = 'Byte' band 0x80</code> 
+		    with the next byte as the size of the following binary.
+		</li>
+	    </ul>
+	    <p>
+		Due to JavaScript being unable to receive binary
+		frames, all of the frames sent
+		by <code>bert_websocket.erl</code> or <code>ubf_websocket.erl</code> are sent as the first option (<b>a</b>).
+		<code>armstrong_websocket.erl</code> simply echos the input data without performing any encoding or decoding.
+	    </p>
+	    <ul>
+		<li>
+		    <label>1</label>
+		    <a href="http://dev.w3.org/html5/websockets/" target="_blank">http://dev.w3.org/html5/websockets/</a>
+		</li>
+		<li>
+		    <label>2</label>
+		    <a href="http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol" target="_blank">http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol</a>
+		</li>
+	    </ul>
+
+	    <h2 id="architecture">Architecture</h2>
+	    <p>
+		<img alt="Architecture" src="images/arch.png"/>
+	    </p>
+	    
+	</div>
+	
+    </div> 
+  </body> 
+</html> 

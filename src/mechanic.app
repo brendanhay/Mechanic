@@ -1,0 +1,11 @@
+{application, mechanic, [{description, "Web Socket Server"},
+			 {registered, [mechanic_sup,
+				       logger_sup,
+				       mechanic_acceptor_sup,			
+				       mechanic_socket_sup]},	
+			 {applications, [kernel, stdlib]},
+			 {mod, {mechanic, []}},
+			 {env, [{port, 1234}, 
+				{handlers, [{"/armstrong", armstrong_websocket},
+					    {"/bert", bert_websocket},
+					    {"/ubf", ubf_websocket}]}]}]}.
